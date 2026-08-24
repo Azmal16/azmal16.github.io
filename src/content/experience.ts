@@ -2,7 +2,7 @@ import type { Role } from "@/lib/types";
 
 export const experience: Role[] = [
   {
-    title: "AI Engineer Intern",
+    title: "Intern Software Engineer (AI)",
     org: "Ameya Health",
     location: "Edmonton, Alberta",
     period: "May 2026 — Present",
@@ -10,6 +10,7 @@ export const experience: Role[] = [
     points: [
       "Built an LLM-powered pathway automation system that generates patient notification pathways (push, email, SMS) directly from program content, using Gemini, GPT and Claude.",
       "Ported the Streamlit prototype to a production TypeScript stack (Fastify, React) with live database integration, few-shot prompting and video-transcript-augmented generation.",
+      "Shipped an AI exercise routine agent that generates and conversationally edits clinician-reviewed programs — deterministic risk scoring pre-filters the exercise catalog and re-validates every model selection, so unsafe exercises cannot reach a patient.",
       "Developed a Gemini TTS voiceover studio — CLI and web app — that turns health-program scripts into production audio with style-controlled synthesis.",
     ],
     stack: ["Python", "TypeScript", "Fastify", "React", "Gemini", "GPT", "Claude", "PostgreSQL"],

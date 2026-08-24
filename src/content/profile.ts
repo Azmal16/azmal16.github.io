@@ -3,13 +3,21 @@ import type { MediaItem } from "@/lib/types";
 export const profile = {
   name: "Azmal Awasaf",
   /** Cycled one at a time under the name in the hero. */
-  roles: ["AI Engineer", "ML Researcher", "iOS Developer", "MSc Candidate"],
+  roles: ["AI / ML Engineer", "Software Engineer", "Data Scientist", "MSc Candidate"],
   headline:
     "I build intelligent systems at the intersection of machine learning, information retrieval and healthcare.",
   summary:
     "Graduate student at the University of Alberta and an AI engineer with three years of shipping production machine learning — on-device pose estimation in App Store apps, LLM pipelines that generate real patient content, and retrieval benchmarks that hold up to peer review.",
   location: "Edmonton, Alberta 🇨🇦",
-  availability: "Open to New Grad & Internship roles",
+  availability: "Open to full-time roles",
+
+  /** Rendered as chips in the Contact section. */
+  seeking: [
+    "Software Engineering",
+    "AI / ML Engineering",
+    "Data Science",
+    "Data Analysis",
+  ],
 
   /** Drop a portrait at /public/media/profile/portrait.jpg and set src below. */
   portrait: {
@@ -26,16 +34,16 @@ export const profile = {
 
   /** Shown as a small band under the hero. */
   facts: [
-    { label: "Now", value: "AI Engineer Intern @ Ameya Health" },
+    { label: "Now", value: "Intern Software Engineer (AI) @ Ameya Health" },
     { label: "Studying", value: "MSc Computing Science, UAlberta" },
     { label: "Shipped", value: "2 apps on the App Store & Play Store" },
-    { label: "Writing", value: "CIKM 2026 short paper — Robust-EO" },
+    { label: "Looking for", value: "Full-time SWE, AI/ML, Data roles" },
   ],
 
   /** Paragraphs for the About section. */
   about: [
     "I am a Master's student in Computing Science at the University of Alberta, specialising in multimedia and machine learning. Before Edmonton I spent nearly three years at MyMedicalHUB in Dhaka as a software engineer working across AI and iOS — the kind of role where you train the model on Monday and ship it to real users on Friday.",
-    "That mix is still how I like to work. I am equally comfortable reading a retrieval paper and profiling a CoreML inference pipeline, and most of what I have built lives somewhere between the two: on-device pose estimation for musculoskeletal assessment, LLM pipelines that draft patient notification pathways for clinicians to review, and a benchmark for entity-oriented retrieval that is currently under way as a CIKM short paper.",
+    "That mix is still how I like to work. I am equally comfortable reading a retrieval paper and profiling a CoreML inference pipeline, and most of what I have built lives somewhere between the two: on-device pose estimation for musculoskeletal assessment, LLM pipelines that draft patient notification pathways for clinicians to review, and a benchmark for entity-oriented retrieval that is currently being written up as a short paper.",
     "What I care about is the distance between a promising result and something a person can actually use. Healthcare is where I have spent most of that effort, but the instinct travels.",
   ],
 };

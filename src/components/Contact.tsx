@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail, FileDown, GraduationCap } from "lucide-react";
 import { profile } from "@/content/profile";
 import Reveal from "./Reveal";
+import { Chip } from "./ui";
 
 const CHANNELS = [
   { label: "Email", value: profile.email, href: `mailto:${profile.email}`, Icon: Mail },
@@ -29,6 +30,17 @@ export default function Contact() {
             I&apos;m {profile.availability.toLowerCase()} — and always happy to talk about retrieval, on-device ML,
             or anything at the messy edge where research meets a real product.
           </p>
+
+          <div className="mt-7">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-faint">Looking for</p>
+            <ul className="mt-3 flex flex-wrap justify-center gap-2">
+              {profile.seeking.map((role) => (
+                <li key={role}>
+                  <Chip tone="accent">{role}</Chip>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <a
             href={`mailto:${profile.email}`}

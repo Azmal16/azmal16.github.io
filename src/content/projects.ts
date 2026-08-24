@@ -19,7 +19,7 @@ export const projects: Project[] = [
     body: [
       "Entity annotations on retrieval corpora are noisy. Off-the-shelf entity linkers such as WAT will happily tag every proper noun in a document, which leaves a retrieval system reasoning about entities that are merely mentioned rather than actually what the document is about. Robust-EO is a diagnostic benchmark that asks how much of that noise can be removed, and whether removing it helps.",
       "The core idea is centrality filtering: use an LLM to judge whether each linked entity is central, secondary or incidental to the document, then measure what happens downstream. We build five annotation variants — raw WAT, rho-filtered, centrality-filtered, both, and both plus constrained expansion — and evaluate each against human judgements and against retrieval effectiveness on Robust04.",
-      "The work is being written up as a short paper for CIKM 2026. My contribution spans the annotation pipeline, the LLM-as-annotator agreement analysis, and the retrieval-side evaluation.",
+      "The work is currently being written up as a short paper — unpublished as of now. My contribution spans the annotation pipeline, the LLM-as-annotator agreement analysis, and the retrieval-side evaluation.",
     ],
     highlights: [
       "Six research questions covering noise reduction, constrained expansion, label reliability, entity discriminativeness, and query-dependent vs query-independent centrality.",
@@ -51,6 +51,28 @@ export const projects: Project[] = [
       "Exports to JSON, SQL and CSV so reviewers can work in whichever tool they prefer.",
     ],
     media: [{ src: "", alt: "Pathway automation interface", caption: "Generation and review flow" }],
+  },
+  {
+    slug: "exercise-routine-agent",
+    title: "Exercise Routine Agent",
+    context: "Ameya Health",
+    blurb:
+      "A conversational AI that builds and edits clinical exercise programs, with deterministic safety rules the model cannot override.",
+    year: "2026",
+    categories: ["AI & ML", "Full-stack"],
+    stack: ["TypeScript", "Fastify", "React", "Drizzle", "PostgreSQL", "LLM tool use", "Zod"],
+    body: [
+      "Prescribing exercise for a patient recovering from surgery is not a content problem, it is a safety problem. A floor exercise that is fine for one participant is a fall risk for another, and the difference is not something you want a language model deciding on its own.",
+      "So the agent is built the other way around. Every exercise in the catalog is scored by a deterministic risk model — complexity, orientation and fitness type, weighted from the evidence review behind the original research notebook. The catalog is pre-filtered to the patient's adjusted risk threshold before the model ever sees it, the model only selects, phases and orders what remains, and the assembler re-validates every pick against the same numbers afterwards. Rest breaks are inserted by rule, not by the model.",
+      "On top of generation sits a chat editor: a clinician can ask for changes in plain language — swap this out, make week three easier, this participant had a fall — and the agent proposes an edited routine that goes through the same validation before anything is saved.",
+    ],
+    highlights: [
+      "Deterministic risk scoring gates the catalog before generation and re-validates after, so unsafe exercises cannot reach a patient even if the model asks for them.",
+      "Conversational editing with structured proposals merged onto the existing routine rather than regenerated from scratch.",
+      "Adverse-event handling that adjusts the program in response to a reported fall or injury.",
+      "Ported from a research notebook into the production TypeScript monorepo, sharing safety rules with the pathway generator.",
+    ],
+    media: [{ src: "", alt: "Exercise routine agent interface" }],
   },
   {
     slug: "emma-health",
