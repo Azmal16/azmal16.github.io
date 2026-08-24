@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@custom-variant light (&:where(.light, .light *));
+
+/* ── Design tokens ──────────────────────────────────────────────────────────
+   Dark is the default. `.light` on <html> flips the semantic variables only,
+   so no component ever needs a light: variant for colour.                    */
+
+:root {
+  --bg: #0d0d10;
+  --bg-elevated: #131318;
+  --bg-sunken: #08080a;
+  --surface: #17171d;
+  --surface-hover: #1e1e26;
+  --border: #26262f;
+  --border-strong: #35353f;
+  --text: #ececed;
+  --text-muted: #9c9ca8;
+  --text-faint: #6b6b78;
+  --accent: #22d3ee;
+  --accent-strong: #06b6d4;
+  --accent-soft: rgba(34, 211, 238, 0.12);
+  --accent-glow: rgba(34, 211, 238, 0.28);
+  --warm: #f6a94a;
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -12px rgba(0, 0, 0, 0.7);
+}
+
+.light {
+  --bg: #fbfbf9;
+  --bg-elevated: #ffffff;
+  --bg-sunken: #f2f2ee;
+  --surface: #ffffff;
+  --surface-hover: #f6f6f3;
+  --border: #e3e3dd;
+  --border-strong: #cfcfc7;
+  --text: #15151a;
+  --text-muted: #5c5c66;
+  --text-faint: #8a8a94;
+  --accent: #0891b2;
+  --accent-strong: #0e7490;
+  --accent-soft: rgba(8, 145, 178, 0.1);
+  --accent-glow: rgba(8, 145, 178, 0.2);
+  --warm: #c2761b;
+  --grid-line: rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 1px 2px rgba(20, 20, 30, 0.06), 0 12px 28px -14px rgba(20, 20, 30, 0.18);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-sunken: var(--bg-sunken);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-warm: var(--warm);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-display), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  /* offset for the sticky nav when jumping to an anchor */
+  scroll-padding-top: 5.5rem;
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ── Utilities ─────────────────────────────────────────────────────────── */
+
+.section-pad {
+  padding-block: clamp(4.5rem, 10vw, 8rem);
+}
+
+.shell {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 3rem);
+}
+
+.card-shadow {
+  box-shadow: var(--shadow-card);
+}
+
+.accent-glow {
+  box-shadow: 0 0 0 1px var(--accent-soft), 0 8px 40px -12px var(--accent-glow);
+}
+
+/* Faint blueprint grid used behind the hero and the Beyond section. */
+.grid-bg {
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.mask-fade-b {
+  mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, var(--text) 30%, var(--accent) 130%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Placeholder tiles for media that has not been added yet. Deliberately
+   designed rather than "broken image" — see components/Media.tsx. */
+.placeholder-weave {
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--grid-line) 0px,
+    var(--grid-line) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
