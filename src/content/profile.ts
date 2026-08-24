@@ -21,8 +21,8 @@ export const profile = {
 
   /** Drop a portrait at /public/media/profile/portrait.jpg and set src below. */
   portrait: {
-    src: "",
-    alt: "Azmal Awasaf",
+    src: "/media/profile/portrait.jpg",
+    alt: "Azmal Awasaf on the University of Alberta campus",
   } satisfies MediaItem,
 
   email: "azmalawasaf@gmail.com",

@@ -220,7 +220,13 @@ export const projects: Project[] = [
       "Synthetic procedural data generator so the pipeline runs without large downloads.",
       "Adaptive method-selection strategy derived from the view-count crossover.",
     ],
-    media: [{ src: "", alt: "Voxel reconstruction comparison grid" }],
+    media: [
+      {
+        src: "/media/projects/multiview-3d-reconstruction.jpg",
+        alt: "Reconstruction comparison — 3D-R2N2 and Pix2Vox against ground truth at two and three input views",
+        caption: "Qualitative results, ShapeNet airplane",
+      },
+    ],
   },
   {
     slug: "neighbourhood-finder",
@@ -263,7 +269,13 @@ export const projects: Project[] = [
       "Interactive VTK prototype for live preset switching.",
       "Built on the USGS Cascadia v1.7 seismic velocity model.",
     ],
-    media: [{ src: "", alt: "Direct volume rendering comparison atlas" }],
+    media: [
+      {
+        src: "/media/projects/perception-dvr.jpg",
+        alt: "Two direct volume renderings of the same seismic volume under different transfer functions",
+        caption: "Baseline vs. chimney-highlighting transfer function",
+      },
+    ],
   },
   {
     slug: "video-segmentation-tracking",
@@ -292,7 +304,13 @@ export const projects: Project[] = [
       "Classical stitching pipelines depend on hand-designed keypoint detectors, which degrade under low texture, repeated patterns and large viewpoint change. This implementation swaps in learned feature extraction — the Feature-Augmented Registration approach — to compute the homography, then blends into a seamless panorama.",
       "The comparison against SIFT and ORB baselines is the point: it shows where learned features win and where the classical detectors are still perfectly adequate and considerably cheaper.",
     ],
-    media: [{ src: "", alt: "Stitched panorama output" }],
+    media: [
+      {
+        src: "/media/projects/image-stitching-far.jpg",
+        alt: "Panorama stitched from two overlapping campus photographs using learned features",
+        caption: "Stitched output",
+      },
+    ],
   },
   {
     slug: "traffic-light-detection",

@@ -12,8 +12,10 @@ export const beyond: BeyondTile[] = [
     kicker: "Strength & consistency",
     body: "Lifting is the closest thing I have to a control experiment on myself — one variable at a time, measured over months. It is also why building movement-assessment software never felt abstract: I have spent enough time under a bar to care whether the feedback is any good.",
     media: [
-      { src: "", alt: "Training photo" },
-      { src: "", alt: "Training photo" },
+      {
+        src: "/media/beyond/training-run.jpg",
+        alt: "Apple Watch showing a finished 4 km outdoor run on an athletics track",
+      },
     ],
   },
   {
@@ -22,9 +24,18 @@ export const beyond: BeyondTile[] = [
     kicker: "Bangladesh → Canada, and onward",
     body: "Moving from Dhaka to Edmonton reset what I think of as ordinary. I take every chance to get out into the Rockies, and I am slowly working through a list of places that look nothing like either home.",
     media: [
-      { src: "", alt: "Travel photo" },
-      { src: "", alt: "Travel photo" },
-      { src: "", alt: "Travel photo" },
+      {
+        src: "/media/beyond/travel-lake-louise.jpg",
+        alt: "Standing in front of snow-covered pines in the Canadian Rockies",
+      },
+      {
+        src: "/media/beyond/travel-calgary-tower.jpg",
+        alt: "Looking out over Calgary at sunset from the Calgary Tower observation deck",
+      },
+      {
+        src: "/media/beyond/travel-calgary-skyline.jpg",
+        alt: "Downtown Calgary from above on a clear winter evening",
+      },
     ],
   },
   {

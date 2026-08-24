@@ -27,14 +27,20 @@ export default function Beyond() {
                 <p className="mt-3 flex-1 text-pretty text-sm leading-relaxed text-muted">{tile.body}</p>
 
                 <div
-                  className={`mt-6 grid gap-2 ${tile.media.length > 2 ? "grid-cols-3" : "grid-cols-2"}`}
+                  className={`mt-6 grid gap-2 ${
+                    tile.media.length === 1
+                      ? "grid-cols-1"
+                      : tile.media.length > 2
+                        ? "grid-cols-3"
+                        : "grid-cols-2"
+                  }`}
                 >
                   {tile.media.map((m, j) => (
                     <Media
                       key={j}
                       item={m}
                       seed={`${tile.key}-${j}`}
-                      aspect="aspect-square"
+                      aspect={tile.media.length === 1 ? "aspect-[16/10]" : "aspect-square"}
                       className="rounded-lg"
                     />
                   ))}
