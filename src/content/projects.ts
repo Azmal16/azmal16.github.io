@@ -103,7 +103,13 @@ export const projects: Project[] = [
       "NLP triage chatbot for intent classification and symptom entity extraction.",
       "Shipped and maintained on both the App Store and Google Play.",
     ],
-    media: [{ src: "", alt: "EMMA Health app screenshots", caption: "Assessment flow" }],
+    media: [
+      {
+        src: "/media/projects/emma-health.jpg",
+        alt: "Three EMMA Health screens — the assessment dashboard, prescribed home exercises, and a generated clinical report",
+        caption: "Assessment flow",
+      },
+    ],
   },
   {
     slug: "atlas-athlete",
@@ -131,7 +137,13 @@ export const projects: Project[] = [
       "Injury-risk classification driving personalised exercise recommendation.",
       "Real-time movement feedback during exercise.",
     ],
-    media: [{ src: "", alt: "Atlas Athlete app screenshots" }],
+    media: [
+      {
+        src: "/media/projects/atlas-athlete.jpg",
+        alt: "Three Atlas Athlete screens — the athlete dashboard, the Ask EMMA assistant, and a movement assessment report",
+        caption: "Dashboard, assistant and report",
+      },
+    ],
   },
   {
     slug: "voiceover-studio",

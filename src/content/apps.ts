@@ -16,7 +16,12 @@ export const apps: AppItem[] = [
         icon: "playstore",
       },
     ],
-    media: [{ src: "", alt: "EMMA Health app screenshot" }],
+    media: [
+      {
+        src: "/media/apps/emma-health.jpg",
+        alt: "Three EMMA Health screens — the assessment dashboard, prescribed home exercises, and a generated clinical report",
+      },
+    ],
   },
   {
     name: "Atlas Athlete",
@@ -33,6 +38,11 @@ export const apps: AppItem[] = [
         icon: "playstore",
       },
     ],
-    media: [{ src: "", alt: "Atlas Athlete app screenshot" }],
+    media: [
+      {
+        src: "/media/apps/atlas-athlete.jpg",
+        alt: "Three Atlas Athlete screens — the athlete dashboard, the Ask EMMA assistant, and a movement assessment report",
+      },
+    ],
   },
 ];
