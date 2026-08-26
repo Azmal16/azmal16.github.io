@@ -36,18 +36,6 @@ a designed placeholder until you fill it in, so nothing breaks while you wait.
 
 Drop the new PDF at `public/Azmal_Awasaf_CV.pdf` (same filename) and push.
 
-## Accent colour (temporary preview)
-
-A floating palette button in the bottom-right corner switches the site's accent
-tint between Cyan (current), Emerald, Amber, Orange, Coral and Violet. The choice
-is remembered per browser and does not affect anyone else.
-
-**Once you have picked one**, tell me which and I will bake it in — or do it
-yourself: copy that palette's variables out of the `ACCENT PREVIEW` block in
-`src/app/globals.css` into `:root` and `.light`, delete that block, delete
-`src/components/AccentPicker.tsx`, and remove `<AccentPicker />` plus the accent
-line of the theme script from `src/app/layout.tsx`.
-
 ## Local development
 
 ```bash

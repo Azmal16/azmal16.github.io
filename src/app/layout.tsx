@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
-import AccentPicker from "@/components/AccentPicker";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -75,9 +74,6 @@ const themeScript = `
   try {
     var stored = localStorage.getItem("theme");
     if (stored === "light") document.documentElement.classList.add("light");
-    // TEMPORARY — remove with <AccentPicker />
-    var accent = localStorage.getItem("accent");
-    if (accent) document.documentElement.setAttribute("data-accent", accent);
   } catch (e) {}
 })();
 `;
@@ -96,8 +92,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         {children}
-        {/* TEMPORARY — delete once an accent is chosen. See AccentPicker.tsx. */}
-        <AccentPicker />
       </body>
     </html>
   );
