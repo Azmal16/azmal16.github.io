@@ -19,10 +19,17 @@ export const profile = {
     "Data Analysis",
   ],
 
-  /** Drop a portrait at /public/media/profile/portrait.jpg and set src below. */
+  /**
+   * Rendered as a circle. Use a square, head-and-shoulders crop —
+   * portrait-square.jpg is cropped from the full-length portrait.jpg, which is
+   * kept alongside it as the source. To swap in a new photo, drop a square
+   * image in /public/media/profile/ and point `src` at it; if the face sits
+   * high or low in the frame, nudge the crop with `position` (e.g. "50% 35%").
+   */
   portrait: {
-    src: "/media/profile/portrait.jpg",
+    src: "/media/profile/portrait-square.jpg",
     alt: "Azmal Awasaf on the University of Alberta campus",
+    position: "50% 50%",
   } satisfies MediaItem,
 
   email: "azmalawasaf@gmail.com",

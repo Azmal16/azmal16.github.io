@@ -1,43 +1,35 @@
 import type { Project } from "@/lib/types";
 
 /**
- * To add a project: copy any object below, change the fields, done.
+ * ORDER MATTERS. This array is rendered in order, so it doubles as the
+ * priority ranking:
+ *
+ *   tier: "core" → large cards at the top, always visible
+ *                  (Ameya Health → Robust-EO → MyMedicalHUB)
+ *   tier: "more" → compact rows underneath, bucketed by `group` and
+ *                  collapsed behind one "Show all" toggle
+ *
+ * To promote a project, move it up and set `tier: "core"`.
  * To add screenshots: drop files into /public/media/projects/ and add
  * entries to `media` with a real `src` and honest `alt` text.
  */
+export const GROUPS = [
+  "Graduate research & projects",
+  "Undergraduate thesis",
+  "Earlier projects",
+] as const;
+
 export const projects: Project[] = [
-  {
-    slug: "robust-eo",
-    title: "Robust-EO",
-    context: "University of Alberta",
-    blurb:
-      "A benchmark for entity-oriented retrieval on TREC Robust04, built around LLM centrality filtering.",
-    year: "2026",
-    categories: ["Research", "AI & ML"],
-    featured: true,
-    stack: ["Python", "PySerini", "OpenAI", "pytrec-eval", "TREC Robust04"],
-    body: [
-      "Entity annotations on retrieval corpora are noisy. Off-the-shelf entity linkers such as WAT will happily tag every proper noun in a document, which leaves a retrieval system reasoning about entities that are merely mentioned rather than actually what the document is about. Robust-EO is a diagnostic benchmark that asks how much of that noise can be removed, and whether removing it helps.",
-      "The core idea is centrality filtering: use an LLM to judge whether each linked entity is central, secondary or incidental to the document, then measure what happens downstream. We build five annotation variants — raw WAT, rho-filtered, centrality-filtered, both, and both plus constrained expansion — and evaluate each against human judgements and against retrieval effectiveness on Robust04.",
-      "The work is currently being written up as a short paper — unpublished as of now. My contribution spans the annotation pipeline, the LLM-as-annotator agreement analysis, and the retrieval-side evaluation.",
-    ],
-    highlights: [
-      "Six research questions covering noise reduction, constrained expansion, label reliability, entity discriminativeness, and query-dependent vs query-independent centrality.",
-      "LLM-as-annotator agreement measured against direct human entity judgements with Cohen's κ, precision and recall.",
-      "Full annotation guidelines authored so that a second annotator can reproduce the labels.",
-      "Retrieval evaluation with pytrec-eval over the standard Robust04 topic set.",
-    ],
-    media: [{ src: "", alt: "Robust-EO benchmark pipeline diagram", caption: "Annotation pipeline" }],
-  },
+  // ── 1. Ameya Health ──────────────────────────────────────────────
   {
     slug: "pathway-automation",
     title: "Pathway Automation",
     context: "Ameya Health",
+    tier: "core",
     blurb:
       "LLM-driven generation of complete patient notification pathways — push, email and SMS — from program content.",
     year: "2026",
     categories: ["AI & ML", "Full-stack"],
-    featured: true,
     stack: ["Python", "TypeScript", "Fastify", "React", "Gemini", "GPT", "Claude", "PostgreSQL", "Streamlit"],
     body: [
       "Health programs need a steady drip of notifications — a push message on day three, an email in week two, an SMS nudge when someone falls behind. Writing them by hand for every program is slow, and consistency slips. This system generates the whole pathway from the program's own content.",
@@ -56,6 +48,7 @@ export const projects: Project[] = [
     slug: "exercise-routine-agent",
     title: "Exercise Routine Agent",
     context: "Ameya Health",
+    tier: "core",
     blurb:
       "A conversational AI that builds and edits clinical exercise programs, with deterministic safety rules the model cannot override.",
     year: "2026",
@@ -75,14 +68,64 @@ export const projects: Project[] = [
     media: [{ src: "", alt: "Exercise routine agent interface" }],
   },
   {
+    slug: "voiceover-studio",
+    title: "Voiceover Studio",
+    context: "Ameya Health",
+    tier: "core",
+    blurb:
+      "Gemini TTS production tool that turns health-program scripts into styled audio, as both a CLI and a multi-user web app.",
+    year: "2026",
+    categories: ["AI & ML", "Full-stack"],
+    stack: ["Python", "FastAPI", "Gemini TTS", "AWS Cognito", "pydub", "ffmpeg"],
+    body: [
+      "Health programs ship with a lot of narrated audio, and recording it is the bottleneck. Voiceover Studio converts a script — a .docx or .txt file — into finished audio in the voice and pacing the program calls for.",
+      "Because Gemini TTS is LLM-based, style is controlled through natural language rather than SSML: you describe the delivery you want and the model produces it. That turned out to matter more than voice selection, and it is why the tool exposes prompt controls per segment rather than a fixed set of voice presets.",
+      "It ships as two entry points from one codebase — a CLI for batch conversion and a multi-user web app with per-session encrypted API keys behind AWS Cognito, so a content team can use it without anyone sharing credentials.",
+    ],
+    highlights: [
+      "Natural-language style control per segment instead of SSML markup.",
+      "Batch conversion of multi-section scripts to MP3 and WAV with per-segment prompt records.",
+      "Multi-user web app with Cognito auth and per-session encrypted API keys.",
+      "Handles multilingual scripts — the production output includes full French program sets.",
+    ],
+    media: [{ src: "", alt: "Voiceover Studio web interface" }],
+  },
+
+  // ── 2. Robust-EO ─────────────────────────────────────────────────
+  {
+    slug: "robust-eo",
+    title: "Robust-EO",
+    context: "Missouri S&T collaboration",
+    tier: "core",
+    blurb:
+      "A benchmark for entity-oriented retrieval on TREC Robust04, built around LLM centrality filtering.",
+    year: "2026",
+    categories: ["Research", "AI & ML"],
+    stack: ["Python", "PySerini", "OpenAI", "pytrec-eval", "TREC Robust04"],
+    body: [
+      "Entity annotations on retrieval corpora are noisy. Off-the-shelf entity linkers such as WAT will happily tag every proper noun in a document, which leaves a retrieval system reasoning about entities that are merely mentioned rather than actually what the document is about. Robust-EO is a diagnostic benchmark that asks how much of that noise can be removed, and whether removing it helps.",
+      "The core idea is centrality filtering: use an LLM to judge whether each linked entity is central, secondary or incidental to the document, then measure what happens downstream. We build five annotation variants — raw WAT, rho-filtered, centrality-filtered, both, and both plus constrained expansion — and evaluate each against human judgements and against retrieval effectiveness on Robust04.",
+      "The work is a research collaboration with Missouri University of Science and Technology, currently being written up as a short paper — unpublished as of now. My contribution spans the annotation pipeline, the LLM-as-annotator agreement analysis, and the retrieval-side evaluation.",
+    ],
+    highlights: [
+      "Six research questions covering noise reduction, constrained expansion, label reliability, entity discriminativeness, and query-dependent vs query-independent centrality.",
+      "LLM-as-annotator agreement measured against direct human entity judgements with Cohen's κ, precision and recall.",
+      "Full annotation guidelines authored so that a second annotator can reproduce the labels.",
+      "Retrieval evaluation with pytrec-eval over the standard Robust04 topic set.",
+    ],
+    media: [{ src: "", alt: "Robust-EO benchmark pipeline diagram", caption: "Annotation pipeline" }],
+  },
+
+  // ── 3. MyMedicalHUB ────────────────────────────────────────────
+  {
     slug: "emma-health",
     title: "EMMA Health",
     context: "MyMedicalHUB",
+    tier: "core",
     blurb:
       "AI-assisted musculoskeletal health iOS app with on-device pose estimation, symptom triage and telemedicine.",
     year: "2022 — 2025",
     categories: ["iOS", "AI & ML"],
-    featured: true,
     stack: ["Swift", "SwiftUI", "CoreML", "TensorFlow Lite", "MoveNet", "WebRTC", "AVFoundation"],
     links: [
       { label: "App Store", href: "https://apps.apple.com/us/app/emma-health/id6477580332", icon: "appstore" },
@@ -115,6 +158,7 @@ export const projects: Project[] = [
     slug: "atlas-athlete",
     title: "Atlas Athlete",
     context: "MyMedicalHUB",
+    tier: "core",
     blurb:
       "AI fitness assistant using on-device pose estimation and NLP injury-risk classification for personalised training.",
     year: "2024 — 2025",
@@ -145,32 +189,14 @@ export const projects: Project[] = [
       },
     ],
   },
-  {
-    slug: "voiceover-studio",
-    title: "Voiceover Studio",
-    context: "Ameya Health",
-    blurb:
-      "Gemini TTS production tool that turns health-program scripts into styled audio, as both a CLI and a multi-user web app.",
-    year: "2026",
-    categories: ["AI & ML", "Full-stack"],
-    stack: ["Python", "FastAPI", "Gemini TTS", "AWS Cognito", "pydub", "ffmpeg"],
-    body: [
-      "Health programs ship with a lot of narrated audio, and recording it is the bottleneck. Voiceover Studio converts a script — a .docx or .txt file — into finished audio in the voice and pacing the program calls for.",
-      "Because Gemini TTS is LLM-based, style is controlled through natural language rather than SSML: you describe the delivery you want and the model produces it. That turned out to matter more than voice selection, and it is why the tool exposes prompt controls per segment rather than a fixed set of voice presets.",
-      "It ships as two entry points from one codebase — a CLI for batch conversion and a multi-user web app with per-session encrypted API keys behind AWS Cognito, so a content team can use it without anyone sharing credentials.",
-    ],
-    highlights: [
-      "Natural-language style control per segment instead of SSML markup.",
-      "Batch conversion of multi-section scripts to MP3 and WAV with per-segment prompt records.",
-      "Multi-user web app with Cognito auth and per-session encrypted API keys.",
-      "Handles multilingual scripts — the production output includes full French program sets.",
-    ],
-    media: [{ src: "", alt: "Voiceover Studio web interface" }],
-  },
+
+  // ── 4. Graduate research & projects ─────────────────────────────────────────
   {
     slug: "lar-retinal-segmentation",
     title: "Local Autoregressive Retinal Vessel Segmentation",
     context: "Graduate research",
+    tier: "more",
+    group: "Graduate research & projects",
     blurb:
       "A patch-based local autoregressive framework for medical image segmentation — and an honest look at where it breaks.",
     year: "2025",
@@ -192,6 +218,8 @@ export const projects: Project[] = [
     slug: "lar-symbolic-music",
     title: "Local Autoregressive Symbolic Music Generation",
     context: "Graduate research",
+    tier: "more",
+    group: "Graduate research & projects",
     blurb:
       "A local autoregressive latent transition framework with residual modelling and a gated drift mechanism, on JSB Chorales.",
     year: "2026",
@@ -213,6 +241,8 @@ export const projects: Project[] = [
     slug: "multiview-3d-reconstruction",
     title: "Multi-View 3D Reconstruction",
     context: "University of Alberta",
+    tier: "more",
+    group: "Graduate research & projects",
     blurb:
       "Benchmarking 3D-R2N2, Pix2Vox and TripoSR on sparse-view reconstruction, with an adaptive method-selection strategy.",
     year: "2026",
@@ -244,6 +274,8 @@ export const projects: Project[] = [
     slug: "neighbourhood-finder",
     title: "AI Neighbourhood Finder",
     context: "University of Alberta",
+    tier: "more",
+    group: "Graduate research & projects",
     blurb:
       "RAG-powered Edmonton neighbourhood explorer with semantic search over civic data and an interactive map.",
     year: "2026",
@@ -266,6 +298,8 @@ export const projects: Project[] = [
     slug: "perception-dvr",
     title: "Perception-Oriented Volume Rendering",
     context: "University of Alberta",
+    tier: "more",
+    group: "Graduate research & projects",
     blurb:
       "How transfer functions, sampling density and shading change what a reader can actually see in subsurface seismic volumes.",
     year: "2026",
@@ -293,6 +327,8 @@ export const projects: Project[] = [
     slug: "video-segmentation-tracking",
     title: "Prompt-Based Video Segmentation & Tracking",
     context: "University of Alberta",
+    tier: "more",
+    group: "Graduate research & projects",
     blurb: "A video pipeline combining SAM prompt segmentation with YOLOv8 detection and tracking.",
     year: "2025",
     categories: ["AI & ML"],
@@ -307,6 +343,8 @@ export const projects: Project[] = [
     slug: "image-stitching-far",
     title: "Feature-Augmented Image Stitching",
     context: "University of Alberta",
+    tier: "more",
+    group: "Graduate research & projects",
     blurb:
       "Panorama stitching that replaces SIFT/ORB keypoints with learned neural features for homography estimation.",
     year: "2025",
@@ -324,10 +362,14 @@ export const projects: Project[] = [
       },
     ],
   },
+
+  // ── 5. Undergraduate thesis ─────────────────────────────────────────────────
   {
     slug: "traffic-light-detection",
     title: "Traffic Light Detection with YOLOv3 / v5 / v7",
     context: "Undergraduate thesis",
+    tier: "more",
+    group: "Undergraduate thesis",
     blurb:
       "Benchmarking three YOLO generations for real-time traffic light detection under simulated adverse weather.",
     year: "2022",
@@ -344,10 +386,14 @@ export const projects: Project[] = [
     ],
     media: [{ src: "", alt: "Traffic light detection results" }],
   },
+
+  // ── 6. Earlier projects ─────────────────────────────────────────────────────
   {
     slug: "drivemate",
     title: "DriveMate",
     context: "Personal project",
+    tier: "more",
+    group: "Earlier projects",
     blurb: "A smart driving assistant for iOS built around real-time on-device inference.",
     year: "2026",
     categories: ["iOS"],
@@ -366,10 +412,14 @@ export const projects: Project[] = [
   },
 ];
 
-export const featuredProjects = projects.filter((p) => p.featured);
+export const coreProjects = projects.filter((p) => p.tier === "core");
+
+export const moreProjectsByGroup = GROUPS.map((group) => ({
+  group,
+  items: projects.filter((p) => p.tier === "more" && p.group === group),
+})).filter((g) => g.items.length > 0);
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
 }
 
-export const categories = ["All", "AI & ML", "iOS", "Research", "Full-stack"] as const;

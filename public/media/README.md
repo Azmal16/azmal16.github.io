@@ -7,7 +7,7 @@ placeholder until you fill it in. Add media in two steps.
 
 | Folder | What goes in it | Suggested size |
 |---|---|---|
-| `profile/` | Your portrait | 1000 × 1250 (4:5 portrait) |
+| `profile/` | Your portrait — rendered as a circle, so use a **square** head-and-shoulders crop | 900 × 900 |
 | `projects/` | Project screenshots, diagrams, result figures | 1600 × 1000 (16:10) |
 | `apps/` | App Store screenshots and marketing shots | 1600 × 900 (16:9) |
 | `beyond/` | Fitness, travel and lifestyle photos | 1200 × 1200 (square) |
@@ -30,7 +30,9 @@ media: [
 ]
 ```
 
-- **Portrait** → `src/content/profile.ts`, the `portrait` field.
+- **Portrait** → `src/content/profile.ts`, the `portrait` field. It renders as a
+  circle with a centre crop; if the face sits high or low, set
+  `position: "50% 35%"` on the media item to nudge it.
 - **Project galleries** → `src/content/projects.ts`, the `media` array on each project.
   Add as many entries as you like; the gallery grid grows to fit.
 - **App screenshots** → `src/content/apps.ts`.

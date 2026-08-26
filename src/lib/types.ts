@@ -14,6 +14,9 @@ export type MediaItem = {
   alt: string;
   caption?: string;
   type?: "image" | "video";
+  /** CSS object-position, e.g. "50% 30%". Use to nudge the crop when a face
+   *  sits high or low in the frame. Defaults to centre. */
+  position?: string;
 };
 
 export type Link = {
@@ -24,6 +27,13 @@ export type Link = {
 };
 
 export type Category = "AI & ML" | "iOS" | "Research" | "Full-stack";
+
+/**
+ * `core` projects render as large cards at the top of the Selected Work
+ * section, in array order. `more` projects render as compact rows underneath,
+ * bucketed by `group`. Ordering is priority order — highest first.
+ */
+export type Tier = "core" | "more";
 
 export type Project = {
   slug: string;
@@ -39,9 +49,10 @@ export type Project = {
   stack: string[];
   links?: Link[];
   media?: MediaItem[];
-  /** Featured projects render as wide cards at the top of the grid. */
-  featured?: boolean;
-  /** Short label shown top-right of the card, e.g. "Ameya Health". */
+  tier: Tier;
+  /** Bucket heading for `more` projects. Ignored for `core`. */
+  group?: string;
+  /** Organisation or affiliation, shown above the title. */
   context?: string;
 };
 

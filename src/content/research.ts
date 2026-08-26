@@ -4,7 +4,7 @@ export const research: ResearchItem[] = [
   {
     title: "Robust-EO: A Benchmark for Entity-Oriented Retrieval on Robust04",
     venue: "Short paper in preparation",
-    status: "Unpublished — work in progress",
+    status: "Collaboration with Missouri S&T · unpublished",
     summary:
       "Entity linkers over-annotate. Robust-EO measures how much document-side entity noise LLM centrality filtering removes, whether constrained expansion recovers genuinely missing entities, and whether any of it moves retrieval effectiveness.",
     points: [

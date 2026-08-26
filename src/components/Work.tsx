@@ -1,19 +1,18 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { projects, categories } from "@/content/projects";
-import ProjectCard from "./ProjectCard";
+import { ChevronDown } from "lucide-react";
+import { coreProjects, moreProjectsByGroup } from "@/content/projects";
+import ProjectCard, { ProjectRow } from "./ProjectCard";
+import Reveal from "./Reveal";
 import { SectionHeading } from "./ui";
 
-export default function Work() {
-  const [filter, setFilter] = useState<string>("All");
-  const reduced = useReducedMotion();
+const moreCount = moreProjectsByGroup.reduce((n, g) => n + g.items.length, 0);
 
-  const visible = useMemo(
-    () => (filter === "All" ? projects : projects.filter((p) => p.categories.includes(filter as never))),
-    [filter],
-  );
+export default function Work() {
+  const [expanded, setExpanded] = useState(false);
+  const reduced = useReducedMotion();
 
   return (
     <section id="work" className="section-pad border-t border-line">
@@ -21,48 +20,76 @@ export default function Work() {
         <SectionHeading
           index="02 / SELECTED WORK"
           title="Things I've built."
-          lead="Production systems, research prototypes and shipped apps. Every one of these has a write-up behind it."
+          lead="The work that matters most, first — production systems at Ameya Health, a retrieval benchmark with Missouri S&T, and two apps on the App Store. Everything else is one click below."
         />
 
-        <div className="mb-10 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects by category">
-          {categories.map((c) => (
-            <button
-              key={c}
-              type="button"
-              role="tab"
-              aria-selected={filter === c}
-              onClick={() => setFilter(c)}
-              className={`rounded-full border px-4 py-1.5 text-sm transition ${
-                filter === c
-                  ? "border-accent bg-accent-soft text-accent"
-                  : "border-line text-muted hover:border-line-strong hover:text-ink"
-              }`}
-            >
-              {c}
-              <span className="ml-1.5 font-mono text-[10px] text-faint">
-                {c === "All" ? projects.length : projects.filter((p) => p.categories.includes(c as never)).length}
-              </span>
-            </button>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {coreProjects.map((p, i) => (
+            <Reveal key={p.slug} delay={i % 3} className="h-full">
+              <ProjectCard project={p} />
+            </Reveal>
           ))}
         </div>
 
-        <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {visible.map((p) => (
-              <motion.div
-                key={p.slug}
-                layout
-                initial={reduced ? false : { opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.32, ease: [0.22, 0.61, 0.36, 1] }}
-                className={p.featured && filter === "All" ? "sm:col-span-2 lg:col-span-3" : ""}
-              >
-                <ProjectCard project={p} wide={Boolean(p.featured) && filter === "All"} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* Everything below the core tier, collapsed by default. */}
+        <Reveal delay={1} className="mt-14">
+          <div className="rounded-2xl border border-line bg-bg-elevated">
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              aria-expanded={expanded}
+              aria-controls="more-work"
+              className="group flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-5 text-left transition hover:bg-surface-hover sm:px-7"
+            >
+              <div className="min-w-0">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-faint">
+                  Research &amp; earlier work
+                </p>
+                <p className="mt-1.5 text-sm text-muted">
+                  {moreProjectsByGroup
+                    .map((g) => `${g.group} (${g.items.length})`)
+                    .join("  ·  ")}
+                </p>
+              </div>
+              <span className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-accent">
+                {expanded ? "Hide" : `Show all ${moreCount}`}
+                <ChevronDown
+                  size={15}
+                  className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+                />
+              </span>
+            </button>
+
+            <AnimatePresence initial={false}>
+              {expanded ? (
+                <motion.div
+                  id="more-work"
+                  key="more"
+                  initial={reduced ? false : { height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={reduced ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: [0.22, 0.61, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="space-y-9 border-t border-line px-6 pb-8 pt-7 sm:px-7">
+                    {moreProjectsByGroup.map((group) => (
+                      <div key={group.group}>
+                        <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
+                          {group.group}
+                        </h3>
+                        <div className="mt-3">
+                          {group.items.map((p) => (
+                            <ProjectRow key={p.slug} project={p} />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

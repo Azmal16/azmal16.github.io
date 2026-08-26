@@ -6,7 +6,8 @@ type Props = {
   seed?: string;
   className?: string;
   aspect?: string;
-  priority?: boolean;
+  /** Renders as a circle — used for the portrait. Forces a square crop. */
+  circle?: boolean;
 };
 
 const HUES = [
@@ -26,8 +27,10 @@ function hash(input: string) {
  * Renders the real asset once `item.src` is filled in, and a designed
  * placeholder until then — so an unfinished gallery still looks intentional.
  */
-export default function Media({ item, seed = "", className = "", aspect = "aspect-[16/10]" }: Props) {
-  const base = `relative overflow-hidden rounded-xl border border-line bg-bg-elevated ${aspect} ${className}`;
+export default function Media({ item, seed = "", className = "", aspect = "aspect-[16/10]", circle }: Props) {
+  const shape = circle ? "aspect-square rounded-full" : `${aspect} rounded-xl`;
+  const base = `relative overflow-hidden border border-line bg-bg-elevated ${shape} ${className}`;
+  const objectPosition = item.position ?? "50% 50%";
 
   if (item.src) {
     if (item.type === "video") {
@@ -37,6 +40,7 @@ export default function Media({ item, seed = "", className = "", aspect = "aspec
           <video
             src={item.src}
             className="h-full w-full object-cover"
+            style={{ objectPosition }}
             controls
             playsInline
             preload="metadata"
@@ -52,9 +56,10 @@ export default function Media({ item, seed = "", className = "", aspect = "aspec
           src={item.src}
           alt={item.alt}
           loading="lazy"
+          style={{ objectPosition }}
           className="h-full w-full object-cover transition-transform duration-700 will-change-transform group-hover:scale-[1.03]"
         />
-        {item.caption ? (
+        {item.caption && !circle ? (
           <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-xs text-white/90">
             {item.caption}
           </figcaption>
@@ -70,20 +75,31 @@ export default function Media({ item, seed = "", className = "", aspect = "aspec
       <div className={`absolute inset-0 bg-gradient-to-br ${hue}`} aria-hidden />
       <div className="relative flex flex-col items-center gap-2 px-4 text-center">
         <svg
-          width="26"
-          height="26"
+          width={circle ? 30 : 26}
+          height={circle ? 30 : 26}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.4"
+          strokeWidth="1.3"
           className="text-faint"
           aria-hidden
         >
-          <rect x="3" y="4" width="18" height="16" rx="2" />
-          <circle cx="8.5" cy="9.5" r="1.6" />
-          <path d="m4 17 4.5-5 3.5 3.5L15.5 12 20 17" />
+          {circle ? (
+            <>
+              <circle cx="12" cy="8.5" r="3.6" />
+              <path d="M4.6 20a7.6 7.6 0 0 1 14.8 0" />
+            </>
+          ) : (
+            <>
+              <rect x="3" y="4" width="18" height="16" rx="2" />
+              <circle cx="8.5" cy="9.5" r="1.6" />
+              <path d="m4 17 4.5-5 3.5 3.5L15.5 12 20 17" />
+            </>
+          )}
         </svg>
-        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-faint">{item.caption ?? "Photo coming soon"}</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-faint">
+          {item.caption ?? (circle ? "Portrait" : "Photo coming soon")}
+        </span>
       </div>
     </div>
   );

@@ -39,12 +39,19 @@ export default function About() {
           </Reveal>
 
           <Reveal delay={2} className="space-y-6">
-            <Media
-              item={profile.portrait.src ? profile.portrait : { src: "", alt: "Portrait of Azmal Awasaf", caption: "Portrait coming soon" }}
-              seed="portrait"
-              aspect="aspect-[4/5]"
-              className="group"
-            />
+            <div className="flex flex-col items-center rounded-xl border border-line bg-bg-elevated px-6 py-8 text-center">
+              <Media
+                item={profile.portrait}
+                seed="portrait"
+                circle
+                className="group w-40 border-0 ring-1 ring-accent/25 ring-offset-4 ring-offset-bg-elevated sm:w-48"
+              />
+              <p className="mt-6 text-base font-semibold tracking-tight text-ink">{profile.name}</p>
+              <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
+                AI Engineer &amp; ML Researcher
+              </p>
+              <p className="mt-2 text-xs text-faint">{profile.location}</p>
+            </div>
 
             <div className="rounded-xl border border-line bg-bg-elevated p-5">
               <h3 className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-faint">
