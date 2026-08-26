@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import type { MediaItem } from "@/lib/types";
 
 type Props = {
@@ -26,37 +29,56 @@ function hash(input: string) {
 /**
  * Renders the real asset once `item.src` is filled in, and a designed
  * placeholder until then — so an unfinished gallery still looks intentional.
+ *
+ * A path that points at a file which isn't there yet also falls back to the
+ * placeholder rather than showing a broken image, so content can be wired up
+ * before the photo lands.
  */
 export default function Media({ item, seed = "", className = "", aspect = "aspect-[16/10]", circle }: Props) {
+  const [missing, setMissing] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // An image rendered in the server HTML can fail before React attaches onError,
+  // so re-check once on mount: complete with no intrinsic width means it 404'd.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img?.complete && img.naturalWidth === 0) setMissing(true);
+  }, [item.src]);
+
   const shape = circle ? "aspect-square rounded-full" : `${aspect} rounded-xl`;
   const base = `relative overflow-hidden border border-line bg-bg-elevated ${shape} ${className}`;
   const objectPosition = item.position ?? "50% 50%";
+  const showAsset = Boolean(item.src) && !missing;
 
-  if (item.src) {
-    if (item.type === "video") {
-      return (
-        <div className={base}>
-          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video
-            src={item.src}
-            className="h-full w-full object-cover"
-            style={{ objectPosition }}
-            controls
-            playsInline
-            preload="metadata"
-            aria-label={item.alt}
-          />
-        </div>
-      );
-    }
+  if (showAsset && item.type === "video") {
+    return (
+      <div className={base}>
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+        <video
+          src={item.src}
+          className="h-full w-full object-cover"
+          style={{ objectPosition }}
+          controls
+          playsInline
+          preload="metadata"
+          aria-label={item.alt}
+          onError={() => setMissing(true)}
+        />
+      </div>
+    );
+  }
+
+  if (showAsset) {
     return (
       <figure className={base}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
+          ref={imgRef}
           src={item.src}
           alt={item.alt}
           loading="lazy"
           style={{ objectPosition }}
+          onError={() => setMissing(true)}
           className="h-full w-full object-cover transition-transform duration-700 will-change-transform group-hover:scale-[1.03]"
         />
         {item.caption && !circle ? (

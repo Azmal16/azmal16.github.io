@@ -10,11 +10,16 @@ export const beyond: BeyondTile[] = [
     key: "fitness",
     title: "Training",
     kicker: "Strength & consistency",
-    body: "Lifting is the closest thing I have to a control experiment on myself — one variable at a time, measured over months. It is also why building movement-assessment software never felt abstract: I have spent enough time under a bar to care whether the feedback is any good.",
+    body: "Lifting is the closest thing I have to a control experiment on myself — one variable at a time, measured over months. It is also why movement-assessment software never felt abstract to me.",
     media: [
       {
-        src: "/media/beyond/training-run.jpg",
-        alt: "Apple Watch showing a finished 4 km outdoor run on an athletics track",
+        src: "/media/beyond/training-gym.jpg",
+        alt: "Mid-session at the gym in a training shirt",
+        // square source in a 4:3 frame — bias the crop upward so the
+        // head and shoulders stay in view rather than centring on the torso
+        position: "50% 18%",
+        // training-run.jpg (an Apple Watch run summary) is still in
+        // /public/media/beyond/ if you'd rather show that instead.
       },
     ],
   },

@@ -50,6 +50,12 @@ Set `type: "video"` and point `src` at an `.mp4` in the same folders:
 
 Keep videos short and under ~10 MB — GitHub Pages serves them uncompressed.
 
+## Waiting on a photo
+
+If a `src` points at a file that isn't there yet, the site shows the designed
+placeholder instead of a broken image — so it is safe to wire up a path before
+the photo lands. Right now `beyond/training-gym.jpg` is wired up and waiting.
+
 ## Publishing
 
 Commit and push to `main`. GitHub Actions rebuilds and redeploys automatically;

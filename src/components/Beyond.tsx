@@ -40,7 +40,7 @@ export default function Beyond() {
                       key={j}
                       item={m}
                       seed={`${tile.key}-${j}`}
-                      aspect={tile.media.length === 1 ? "aspect-[16/10]" : "aspect-square"}
+                      aspect={tile.media.length === 1 ? "aspect-[4/3]" : "aspect-square"}
                       className="rounded-lg"
                     />
                   ))}
