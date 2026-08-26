@@ -54,7 +54,7 @@ Keep videos short and under ~10 MB — GitHub Pages serves them uncompressed.
 
 If a `src` points at a file that isn't there yet, the site shows the designed
 placeholder instead of a broken image — so it is safe to wire up a path before
-the photo lands. Right now `beyond/training-gym.jpg` is wired up and waiting.
+the photo lands.
 
 ## Publishing
 
